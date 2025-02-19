@@ -17,6 +17,7 @@ Once you we run the model on the input video we will get the following output:
 We can see how the model actually creates the bounding box with the following output:
 
 ''' EXAMPLE OF BINDING BOX For yolov8s model (Overall detection is not that good as the object detection is limited by the amount of registerd objects)
+
 cls: tensor([0.]) -----  0 means person
 conf: tensor([0.7660]) ---- Confidence of the object being an person
 data: tensor([[5.3302e+02, 6.8714e+02, 5.7907e+02, 7.8698e+02, 7.6599e-01, 0.0000e+00]])
@@ -48,5 +49,30 @@ Labeled Data:
 Now we understand how the training works we can finally take a look at the final output once the model has undergone training
 
 Output once the model has undergone training:
+![](images/output_2.jpg)
 
+With the newly trained model, we can see that objects are identified more precisely. Players are now labeled as 'players,' and referees are correctly classified as 'referees.' This improvement is a direct result of the labeled data we provided during training.
+
+Below is an example of how the updated model behaves. The following output represents the bounding box of a single player within a frame. Previously, all players and referees were classified as 'persons' (class 0), but now, the model differentiates between them using the following class mappings:
+
+{0: 'ball', 1: 'goalkeeper', 2: 'player', 3: 'referee'}
+
+- cls (class) represents the type of object detected. In this case, cls: 2 indicates that the object is a player.
+- conf (confidence) represents the model’s confidence level in this prediction. Here, the confidence is 30%, meaning the model is 30% sure that this object is a player.
+
+'''BINDING BOX For yolov5s  trained model
+names: {0: 'ball', 1: 'goalkeeper', 2: 'player', 3: 'referee'}
+
+cls: tensor([2.])
+conf: tensor([0.3066])
+data: tensor([[1.1243e+03, 7.0749e+02, 1.2021e+03, 7.9795e+02, 3.0660e-01, 2.0000e+00]])
+id: None
+is_track: False
+orig_shape: (1080, 1920)
+shape: torch.Size([1, 6])
+xywh: tensor([[1163.1974,  752.7164,   77.7913,   90.4594]])
+xywhn: tensor([[0.6058, 0.6970, 0.0405, 0.0838]])
+xyxy: tensor([[1124.3018,  707.4868, 1202.0930,  797.9462]])
+xyxyn: tensor([[0.5856, 0.6551, 0.6261, 0.7388]])
+'''
 
